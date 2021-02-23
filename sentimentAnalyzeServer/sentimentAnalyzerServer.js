@@ -24,9 +24,9 @@ app.get("/url/emotion", (req,res) => {
     };
     NLUInstance.analyze(analyzeParams)
         .then(analysisResults => 
-            res.status(200).send(analysisResults.result.emotion.document.emotion)
+            res.send(analysisResults.result.emotion.document.emotion)
         )
-        .catch(err => res.status(400).send(err))
+        .catch(err => res.send({error: true, message: err.message}))
 });
 
 app.get("/url/sentiment", (req,res) => {
@@ -40,9 +40,9 @@ app.get("/url/sentiment", (req,res) => {
     };
     NLUInstance.analyze(analyzeParams)
         .then(analysisResults => 
-            res.status(200).send(analysisResults.result.sentiment.document.label)
+            res.send(analysisResults.result.sentiment.document.label)
         )
-        .catch(err => res.status(400).send(err))
+        .catch(err => res.send({error: true, message: err.message}))
 });
 
 app.get("/text/emotion", (req,res) => {
@@ -56,9 +56,9 @@ app.get("/text/emotion", (req,res) => {
     };
     NLUInstance.analyze(analyzeParams)
         .then(analysisResults => 
-            res.status(200).send(analysisResults.result.emotion.document.emotion)
+            res.send(analysisResults.result.emotion.document.emotion)
         )
-        .catch(err => res.status(400).send(err))
+        .catch(err => res.send({error: true, message: err.message}))
 });
 
 app.get("/text/sentiment", (req,res) => {
@@ -72,9 +72,9 @@ app.get("/text/sentiment", (req,res) => {
     };
     NLUInstance.analyze(analyzeParams)
         .then(analysisResults => 
-            res.status(200).send(analysisResults.result.sentiment.document.label)
+            res.send(analysisResults.result.sentiment.document.label)
         )
-        .catch(err => res.status(400).send(err))
+        .catch(err => res.send({error: true, message: err.message}))
 });
 
 let server = app.listen(8080, () => {
