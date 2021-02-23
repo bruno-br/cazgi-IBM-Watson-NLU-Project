@@ -46,8 +46,6 @@ class App extends React.Component {
     ret = axios.get(url);
     ret.then((response)=>{
 
-      //Include code here to check the sentiment and fomrat the data accordingly
-
       this.setState({sentimentOutput:response.data});
       let output = response.data;
       if(response.data === "positive") {
@@ -58,7 +56,9 @@ class App extends React.Component {
         output = <div style={{color:"orange",fontSize:20}}>{response.data}</div>
       }
       this.setState({sentimentOutput:output});
-    });
+    }).catch(err => {
+        alert(err);
+    })
   }
 
   sendForEmotionAnalysis = () => {
@@ -73,8 +73,17 @@ class App extends React.Component {
     ret = axios.get(url);
 
     ret.then((response)=>{
-      this.setState({sentimentOutput:<EmotionTable emotions={response.data}/>});
-  });
+      this.setState({
+            sentimentOutput:<EmotionTable emotions={
+                Object.keys(response.data).map(key => 
+                    <tr>
+                        <th>{key}</th>
+                        <th>{response.data[key]}</th>
+                    </tr>
+                )
+            }/>
+        });
+    })
   }
   
 
